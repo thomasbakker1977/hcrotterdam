@@ -1,0 +1,8 @@
+duckdb
+pandas
+requests
+yfinance
+streamlit
+seaborn
+matplotlib
+plotly

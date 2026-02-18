@@ -1,0 +1,11 @@
+ETF,Ticker,Weight,Industry
+DemoETF,AAPL,0.20,Technology
+DemoETF,MSFT,0.18,Technology
+DemoETF,JNJ,0.05,Healthcare
+DemoETF,XOM,0.07,Energy
+DemoETF,AMZN,0.10,Consumer Discretionary
+DemoETF,GOOGL,0.08,Communication Services
+DemoETF,BRK-B,0.06,Financials
+DemoETF,PG,0.04,Consumer Staples
+DemoETF,TSLA,0.05,Consumer Discretionary
+DemoETF,V,0.03,Financials
