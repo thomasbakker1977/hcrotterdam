@@ -9,7 +9,7 @@ if [ ! -d "$SRC_DIR" ]; then
   exit 1
 fi
 
-mkdir -p "$TARGET"
+sudo mkdir -p "$TARGET" 2>/dev/null || true
 
 TMPDIR="$(mktemp -d /tmp/etfdeploy.XXXXXX)"
 trap "rm -rf '$TMPDIR'" EXIT
