@@ -11,15 +11,10 @@ fi
 
 sudo mkdir -p "$TARGET" 2>/dev/null || true
 
-TMPDIR="$(mktemp -d /tmp/etfdeploy.XXXXXX)"
-trap "rm -rf '$TMPDIR'" EXIT
+# Copy files from source to target
+sudo cp -r "$SRC_DIR"/* "$TARGET/" 2>/dev/null || true
 
-rsync -a --delete --chmod=Du=rwx,Dg=rx,Do=rx,Fu=rw,Fg=r,Fo=r "$SRC_DIR/" "$TMPDIR/"
-
-sudo chown -R airflow:airflow "$TMPDIR" 2>/dev/null || true
-
-rsync -a --delete "$TMPDIR/" "$TARGET/"
-
+# Fix ownership and permissions
 sudo chown -R airflow:airflow "$TARGET" 2>/dev/null || true
 sudo chmod -R u+rwX,g+rX,o+rX "$TARGET" 2>/dev/null || true
 
