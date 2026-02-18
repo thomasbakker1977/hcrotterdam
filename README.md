@@ -76,3 +76,21 @@ airflow scheduler &
 ```
 
 The DAG will run daily at 18:00 UTC. Update `schedule_interval` in the DAG file to change cadence.
+
+GitHub Actions deploy workflow
+------------------------------
+
+A GitHub Actions workflow is provided at `.github/workflows/deploy_airflow_dags.yml`. It automatically uploads `airflow_dags/` to a remote Airflow host when you push changes to that folder.
+
+Required repository secrets (set these in the repository Settings → Secrets):
+- `AIRFLOW_HOST` — hostname or IP of your Airflow host
+- `AIRFLOW_USER` — SSH username
+- `AIRFLOW_SSH_KEY` — SSH private key (PEM) for the user
+- `AIRFLOW_DAGS_DIR` — remote path to the Airflow DAGs directory (e.g., `/opt/airflow/dags`)
+- `AIRFLOW_PORT` — (optional) SSH port (defaults to 22)
+- `AIRFLOW_RESTART` — set to `true` to run the optional restart commands after deploy
+
+Notes:
+- The workflow uses `appleboy/scp-action` to copy DAGs and `appleboy/ssh-action` to run optional restart commands. Edit the restart script in the workflow to match how Airflow is run (systemd, docker-compose, kubernetes, etc.).
+- For CI security, prefer creating a deploy-only SSH key and restricting it to the specific host(s).
+

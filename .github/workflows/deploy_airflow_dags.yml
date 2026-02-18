@@ -1,0 +1,37 @@
+name: Deploy Airflow DAGs
+
+on:
+  push:
+    paths:
+      - 'airflow_dags/**'
+
+jobs:
+  deploy:
+    name: Deploy DAGs to Airflow host
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Copy DAGs to remote Airflow host via SCP
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.AIRFLOW_HOST }}
+          username: ${{ secrets.AIRFLOW_USER }}
+          key: ${{ secrets.AIRFLOW_SSH_KEY }}
+          port: ${{ secrets.AIRFLOW_PORT }}
+          source: "airflow_dags/*"
+          target: ${{ secrets.AIRFLOW_DAGS_DIR }}
+
+      - name: (Optional) Restart Airflow services via SSH
+        if: ${{ secrets.AIRFLOW_RESTART == 'true' }}
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.AIRFLOW_HOST }}
+          username: ${{ secrets.AIRFLOW_USER }}
+          key: ${{ secrets.AIRFLOW_SSH_KEY }}
+          port: ${{ secrets.AIRFLOW_PORT }}
+          script: |
+            # Adjust restart commands to your environment (systemd, docker-compose, or kubectl)
+            sudo systemctl restart airflow-scheduler || true
+            sudo systemctl restart airflow-webserver || true
