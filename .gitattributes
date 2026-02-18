@@ -1,0 +1,3 @@
+deploy_dags.sh export-ignore diff=bash
+airflow_dags/*.py export-ignore diff=python
+*.sh export-ignore diff=bash
