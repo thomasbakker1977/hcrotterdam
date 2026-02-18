@@ -22,9 +22,9 @@ with DAG(
     max_active_runs=1,
 ) as dag:
 
-    # Note: Adjust venv path as needed for your environment
-    VENV_PY = '/path/to/your/repo/.venv/bin/python'
-    REPO_DIR = '/path/to/your/repo'
+    # Paths configured for fastapi-node01 deployment
+    VENV_PY = '/home/fastapi/etfscanner_site/.venv/bin/python'
+    REPO_DIR = '/home/fastapi/etfscanner_site'
     DB_FILE = f'{REPO_DIR}/etf_data.duckdb'
     TABLE = 'etf_prices'
 
