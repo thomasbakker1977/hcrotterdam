@@ -94,3 +94,4 @@ Notes:
 - The workflow uses `appleboy/scp-action` to copy DAGs and `appleboy/ssh-action` to run optional restart commands. Edit the restart script in the workflow to match how Airflow is run (systemd, docker-compose, kubernetes, etc.).
 - For CI security, prefer creating a deploy-only SSH key and restricting it to the specific host(s).
 
+# Deploy test Wed Feb 18 23:38:18 CET 2026
